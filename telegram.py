@@ -1,15 +1,12 @@
 import telebot
 from client import VKClient
 import markups
-
 from datetime import datetime
-
-# import telegram
-
 from telebot import types
 
-bot = telebot.TeleBot('5321818418:AAHS5Ret8iJ2BQH7N3G6vuOzkyTPGXBLnI0')
+TOKEN = # TOKEN
 
+bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
@@ -19,12 +16,10 @@ def start_message(message):
 vk_client = VKClient()
 posts = []
 
+from roberta_rus.roberta_predict import predict
 
 def analysis(text):
-    result = 'neutral'
-    if text[:6] == 'Друзья':
-        result = 'positive'
-
+    result = predict(text)
     if result == 'neutral':
         return 'Нейтральные эмоции'
     elif result == 'positive':
