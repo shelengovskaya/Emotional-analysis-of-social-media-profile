@@ -9,13 +9,17 @@ import csv
 from roberta_rus.roberta_predict import predict
 
 
-TOKEN = '5321818418:AAHS5Ret8iJ2BQH7N3G6vuOzkyTPGXBLnI0'
+TOKEN = ''
 
 bot = telebot.TeleBot(TOKEN)
 
 @bot.message_handler(commands=['start'])
 def start_message(message):
-    bot.send_message(message.chat.id,"Введи username.")
+
+    img = open('image.jpg', 'rb')
+    bot.send_photo(message.chat.id, img, caption='Привет!\n\nМы разработали модель, которая позволяет определять моментальное настроение пользователя по его поведению в социальной сети ВКонтакте. Можете ее испробовать. 😊') 
+
+    bot.send_message(message.chat.id, "Введите username пользователя.")
 
 
 vk_client = VKClient()
@@ -33,10 +37,10 @@ def get_analysis(text):
 
 
 def edit_message(call):
-    date = str(datetime.utcfromtimestamp(dates[vars.NUMBER_OF_POST]).strftime('%Y-%m-%d %H:%M:%S'))
+    date = str(datetime.utcfromtimestamp(dates[vars.NUMBER_OF_POST]).strftime('%H:%M %d-%m-%Y')) # %H:%M:%S 
     link = links[vars.NUMBER_OF_POST]
     analysis_result = analysis[vars.NUMBER_OF_POST]
-    text1 = posts[vars.NUMBER_OF_POST][:100]
+    text1 = posts[vars.NUMBER_OF_POST][:1000]
 
     bot.edit_message_text(chat_id=call.message.chat.id, message_id=call.message.message_id, parse_mode='HTML',
                       text=text1,
@@ -119,7 +123,7 @@ def get_history(call):
 
     for i in range(len(posts)):
         if analysis[i]:
-            csv_data.append([posts[i], links[i], dates[i], analysis[i]])
+            csv_data.append([posts[i], links[i], str(datetime.utcfromtimestamp(dates[i]).strftime('%H:%M %d-%m-%Y')), analysis[i]])
 
     header = ['post', 'link', 'date', 'analisys']
 

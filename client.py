@@ -1,7 +1,7 @@
 import vk_api
 
-USERNAME = '+79169329533'
-PASSWORD = 'F8lxYIKBayRL'
+USERNAME = ''
+PASSWORD = ''
 
 
 class VKClient:
