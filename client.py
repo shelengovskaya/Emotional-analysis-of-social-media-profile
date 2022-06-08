@@ -1,8 +1,7 @@
 import vk_api
 
-USERNAME = # USERNAME
-PASSWORD = # PASSWORD
-
+USERNAME = '+79169329533'
+PASSWORD = 'F8lxYIKBayRL'
 
 
 class VKClient:
@@ -33,12 +32,3 @@ class VKClient:
 
 
 		return texts, links, dates
-
-
-
-
-# client = VKClient(USERNAME, PASSWORD)
-
-# result = client.get_posts('mscyouth')
-
-# print(result)
